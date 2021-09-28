@@ -1,0 +1,28 @@
+.bannerCard {
+  background-color: #cfdbd5;
+  color: #333533;
+  padding: 15px 20px;
+  box-shadow: 7px 7px 5px 0px #00000033 inset;
+  border-radius: 10px;
+}
+
+.bannerCard h3 {
+  font-size: 32px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 2px;
+  border-bottom: 1.5px solid #333533;
+  margin-bottom: 10px;
+}
+
+.bannerCard p {
+  font-size: 20px;
+  letter-spacing: 1.2px;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #242423;
+  font-size: 20px;
+}

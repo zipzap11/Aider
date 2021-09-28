@@ -1,0 +1,47 @@
+.contain {
+  padding: 0px;
+}
+
+.contain h3 {
+  color: white;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  margin: 10px 0;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bottomWrapper p {
+  color: white;
+  font-weight: 300;
+}
+
+.btn {
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  column-gap: 5px;
+  border-bottom: 1px solid white;
+  transition: 0.3s ease-in-out;
+}
+
+.btn:hover {
+  color: #f5cb5c;
+  border-bottom: 1px solid #f5cb5c;
+}

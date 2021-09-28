@@ -1,0 +1,12 @@
+.background {
+  background-color: #e8eddf;
+  padding: 1% 0;
+  min-height: 80vh;
+}
+
+.container {
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}

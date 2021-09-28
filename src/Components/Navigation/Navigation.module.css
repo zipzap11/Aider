@@ -1,0 +1,26 @@
+.nav {
+  background-color: #333533;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  align-items: center;
+}
+.list li {
+  padding: 0 2rem;
+}
+
+.list a {
+  text-decoration: none;
+  color: white;
+  font-size: 22px;
+}
+
+.list .active {
+  color: #f5cb5c;
+}

@@ -1,0 +1,39 @@
+.notificationIcon {
+  margin-right: 10px;
+  background-color: #333533;
+  width: min-content;
+  height: min-content;
+  padding: 17px;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px 0px #00000040;
+  transition: 0.4s ease-in-out;
+}
+
+.profileBadge {
+  background-color: #333533;
+  border-radius: 7px;
+  box-shadow: 4px 4px 4px 0px #00000040;
+  color: white;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.4s ease-in-out;
+}
+
+.avatar {
+  margin-right: 7px;
+}
+
+.display {
+  margin-right: 3px;
+}
+
+.dropdown {
+  align-self: flex-start;
+}
+
+.notificationIcon:hover,
+.profileBadge:hover {
+  background-color: #5b5c5b;
+}
