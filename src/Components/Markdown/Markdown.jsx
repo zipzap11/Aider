@@ -25,7 +25,11 @@ function Markdown({ str }) {
               {...props}
             />
           ) : (
-            <code className={className} {...props}>
+            <code
+              style={{ borderRadius: "10px" }}
+              className={className}
+              {...props}
+            >
               {children}
             </code>
           );

@@ -1,39 +1,47 @@
 .notificationIcon {
   margin-right: 10px;
-  background-color: #333533;
+  background-color: white;
+  border: 1px solid #333533;
   width: min-content;
+  color: #333533;
   height: min-content;
-  padding: 17px;
+  padding: 10px;
   border-radius: 5px;
-  box-shadow: 4px 4px 4px 0px #00000040;
+  box-shadow: 2px 2px 4px 0px #00000040;
   transition: 0.4s ease-in-out;
 }
 
 .profileBadge {
-  background-color: #333533;
+  background-color: white;
   border-radius: 7px;
-  box-shadow: 4px 4px 4px 0px #00000040;
-  color: white;
-  padding: 7px 10px;
+  box-shadow: 2px 2px 4px 0px #00000040;
+  border: 1px solid #333533;
+  color: #333533;
+  padding: 4px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: 0.4s ease-in-out;
+  transition: 0.3s ease;
 }
 
 .avatar {
   margin-right: 7px;
+  background-color: #333533;
 }
 
-.display {
+.displayName {
   margin-right: 3px;
+}
+.link {
+  text-decoration: none;
 }
 
 .dropdown {
-  align-self: flex-start;
+  align-self: center;
+  font-size: xx-large;
 }
 
 .notificationIcon:hover,
 .profileBadge:hover {
-  background-color: #5b5c5b;
+  background-color: rgb(235, 232, 232);
 }

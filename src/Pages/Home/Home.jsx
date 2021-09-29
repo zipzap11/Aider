@@ -33,9 +33,10 @@ function Home() {
       <Card className={classes.card}>
         <h2>Why should i use Aider ?</h2>
         <div className={classes.flex}>
-          {bannerData.map((data) => {
+          {bannerData.map((data, i) => {
             return (
               <BannerCard
+                key={i}
                 title={data.title}
                 content={data.content}
                 action={data.action}
