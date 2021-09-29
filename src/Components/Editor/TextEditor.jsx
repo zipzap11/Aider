@@ -29,7 +29,7 @@ function TextEditor({ editorState, onChange }) {
         editorStyle={{
           backgroundColor: "#fff",
           color: "#333533",
-          padding: "1rem",
+          padding: "0 1rem",
           fontWeight: "",
           border: "1px solid #333533",
           minHeight: "150px",

@@ -11,6 +11,7 @@ import TextEditor from "../../Components/Editor/TextEditor";
 import Markdown from "../../Components/Markdown/Markdown";
 import Card from "../../Components/Card/Card";
 import { draftToMarkdown } from "markdown-draft-js";
+import Button from "../../Components/Button/Button";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -48,6 +49,11 @@ function QuestionDetail() {
             str={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
           />
         </Card>
+      </div>
+
+      <div className={classes.btnContain}>
+        <Button theme="light">Cancel</Button>
+        <Button theme="dark">Answer</Button>
       </div>
     </Container>
   );

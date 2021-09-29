@@ -35,7 +35,7 @@ function Forum() {
                     <input type="text" placeholder="i.e java" />
                   </div>
                   <div>
-                    <SearchIcon onClick className={classes.searchBtn} />
+                    <SearchIcon className={classes.searchBtn} />
                   </div>
                 </div>
               </div>

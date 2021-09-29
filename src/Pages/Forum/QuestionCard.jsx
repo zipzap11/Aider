@@ -3,8 +3,8 @@ import Card from "../../Components/Card/Card";
 import classes from "./QuestionCard.module.css";
 import Button from "../../Components/Button/Button";
 import ForumIcon from "@mui/icons-material/Forum";
-import Tag from "./Tag";
-import TagContainer from "./TagContainer";
+import Tag from "../../Components/Tag/Tag";
+import TagContainer from "../../Components/Tag/TagContainer";
 import { useHistory } from "react-router-dom";
 
 function QuestionCard({ author, title, content, tags }) {
