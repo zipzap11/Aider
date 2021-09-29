@@ -4,11 +4,12 @@ function Tag({ text }) {
   return (
     <p
       style={{
-        backgroundColor: "#242423",
-        boxShadow: "5px 5px 10px 0px #00000033",
+        backgroundColor: "#F5CB5C66",
+        boxShadow: "2px 2px 5px 0px #00000040",
         borderRadius: "7px",
         padding: "0 10px",
-        color: "white",
+        color: "#333533",
+        fontSize: "18px",
       }}
     >
       #{text}

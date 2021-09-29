@@ -12,7 +12,7 @@ function App() {
       <Navigation />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/forums" component={Forum} />
+        <Route path="/forum" component={Forum} />
       </Switch>
       <Footer />
     </div>

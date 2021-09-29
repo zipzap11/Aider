@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./Header.module.css";
-import { ReactComponent as Logo } from "./Assets/logo1.svg";
+import { ReactComponent as Logo } from "./Assets/logo4.svg";
 import UserHeader from "./UserHeader";
 import LoginHeader from "./LoginHeader";
 

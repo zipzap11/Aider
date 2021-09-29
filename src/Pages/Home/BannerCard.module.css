@@ -1,9 +1,10 @@
 .bannerCard {
-  background-color: #cfdbd5;
+  background-color: white;
   color: #333533;
   padding: 15px 20px;
-  box-shadow: 7px 7px 5px 0px #00000033 inset;
+  box-shadow: 4px 4px 5px 0px #00000033 inset;
   border-radius: 10px;
+  border: 1px solid #333533;
 }
 
 .bannerCard h3 {
@@ -23,6 +24,5 @@
 .btn {
   width: 100%;
   margin-top: 10px;
-  background-color: #242423;
   font-size: 20px;
 }

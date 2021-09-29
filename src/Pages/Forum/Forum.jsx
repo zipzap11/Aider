@@ -8,10 +8,11 @@ import { questions } from "./questionList";
 import QuestionCard from "./QuestionCard";
 import { Switch, Route } from "react-router-dom";
 import QuestionDetail from "./QuestionDetail";
+
 function Forum() {
   return (
     <Switch>
-      <Route path="/forums" exact>
+      <Route path="/forum" exact>
         <Container>
           <div className={classes.contain}>
             <div className={classes.topleft}>
@@ -23,7 +24,7 @@ function Forum() {
               </p>
             </div>
             <div className={classes.topright}>
-              <Button theme="dark" className={classes.btn}>
+              <Button theme="light" className={classes.btn}>
                 Ask a Question <HelpIcon color="" />
               </Button>
               <div className={classes.search}>
@@ -55,7 +56,7 @@ function Forum() {
           </div>
         </Container>
       </Route>
-      <Route path="/forums/detail" exact component={QuestionDetail} />
+      <Route path="/forum/detail" exact component={QuestionDetail} />
     </Switch>
   );
 }

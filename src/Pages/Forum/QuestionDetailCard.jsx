@@ -3,8 +3,8 @@ import Card from "../../Components/Card/Card";
 import classes from "./QuestionDetailCard.module.css";
 import Tag from "./Tag";
 import TagContainer from "./TagContainer";
-import CommentIcon from "@mui/icons-material/Comment";
 import Markdown from "../../Components/Markdown/Markdown";
+import CommentButton from "../../Components/Button/CommentButton";
 
 const str = `
 So i wanna center my div inside a parent component which is a div too. How should my css file look like? 
@@ -30,10 +30,7 @@ function QuestionDetailCard() {
           })}
         </TagContainer>
         <div className={classes.bottomWrapper}>
-          <button className={classes.btn}>
-            <CommentIcon />
-            add a comment
-          </button>
+          <CommentButton />
           <p>1 hour ago</p>
         </div>
       </div>

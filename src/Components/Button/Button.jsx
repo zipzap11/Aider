@@ -9,7 +9,11 @@ function Button({ theme, onClick, children, className }) {
     style = classes.btnLight;
   }
 
-  return <button className={`${style} ${className}`}>{children}</button>;
+  return (
+    <button onClick={onClick} className={`${style} ${className}`}>
+      {children}
+    </button>
+  );
 }
 
 export default Button;

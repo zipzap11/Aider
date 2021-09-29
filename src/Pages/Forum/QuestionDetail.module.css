@@ -1,9 +1,17 @@
 .questionContain h2,
-.answerContain h2 {
+.answerContain h2,
+.editorContain h2,
+.previewContain h2 {
   font-size: 36px;
   color: #333533;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .answerContain {
   margin: 10px 0;
+}
+
+.card {
+  min-height: 150px;
 }

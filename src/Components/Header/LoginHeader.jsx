@@ -5,7 +5,7 @@ import classes from "./LoginHeader.module.css";
 function LoginHeader() {
   return (
     <>
-      <Button className={classes.btn} theme="dark">
+      <Button className={classes.btn} theme="light">
         Login
       </Button>
       <Button className={classes.btn} theme="dark">

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Navigation.module.css";
+
 function Navigation() {
   return (
     <div className={classes.nav}>
@@ -11,12 +12,12 @@ function Navigation() {
           </NavLink>
         </li>
         <li>
-          <NavLink exact activeClassName={classes.active} to="/blogs">
+          <NavLink exact activeClassName={classes.active} to="/blog">
             Blogs
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName={classes.active} to="/forums">
+          <NavLink activeClassName={classes.active} to="/forum">
             Forums
           </NavLink>
         </li>

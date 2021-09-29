@@ -1,5 +1,7 @@
 import React from "react";
+import CommentButton from "../../Components/Button/CommentButton";
 import Card from "../../Components/Card/Card";
+import CommentList from "../../Components/Comment/CommentList";
 import Markdown from "../../Components/Markdown/Markdown";
 
 const str = `
@@ -17,6 +19,8 @@ function Answer() {
   return (
     <Card>
       <Markdown str={str} />
+      <CommentList />
+      <CommentButton />
     </Card>
   );
 }
