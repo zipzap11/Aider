@@ -3,7 +3,7 @@ import classes from "./QuestionInputCard.module.css";
 import Card from "../../../Components/Card/Card";
 import TextEditor from "../../../Components/Editor/TextEditor";
 
-function QuestionInputCard() {
+function QuestionInputCard({ editorState, onChangeEditorState }) {
   return (
     <>
       <Card className={classes.contain}>
@@ -13,7 +13,7 @@ function QuestionInputCard() {
           facing.
         </p>
       </Card>
-      <TextEditor />
+      <TextEditor editorState={editorState} onChange={onChangeEditorState} />
     </>
   );
 }

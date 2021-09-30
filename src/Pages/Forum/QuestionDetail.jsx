@@ -1,6 +1,5 @@
 import { EditorState } from "draft-js";
 import { convertToRaw } from "draft-js";
-import { draftjsToMd } from "draftjs-md-converter";
 import React, { useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Container from "../../Components/Container/Container";
@@ -16,25 +15,32 @@ import { useSubmitAnswer } from "../../Hooks/useSubmitAnswer";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/client";
 import { getQuestionDetailById } from "../../Graphql/query";
+import LoadingQuestionDetail from "../../Components/Loading/LoadingQuestionDetail";
+import { useSubscribeQuestionDetail } from "../../Hooks/useSubscribeQuestionDetail";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const { submitAnswer, loadingSubmitAnswer } = useSubmitAnswer();
   const { id } = useParams();
+  const { submitAnswer, loadingSubmitAnswer, errorSubmitAnswer } =
+    useSubmitAnswer(id);
   const { data, error, loading } = useQuery(getQuestionDetailById, {
     variables: { id },
   });
+  const {
+    errorQuestionData,
+    loadingQuestionData,
+    questionData: test,
+  } = useSubscribeQuestionDetail(id);
+  console.log("questionData = ", test);
 
   const editorStateChangeHandler = (editorState) => {
-    console.log(
-      "bnakan",
-      draftjsToMd(convertToRaw(editorState.getCurrentContent()))
-    );
     setEditorState(editorState);
   };
 
-  if (loading) return <p>loading</p>;
-  if (error) return <p>error</p>;
+  if (loading) {
+    return <LoadingQuestionDetail />;
+  }
+
   const { answers, ...questionData } = data.question_by_pk;
 
   const submitHandler = () => {

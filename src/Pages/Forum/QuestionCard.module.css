@@ -21,6 +21,7 @@
 .headWrapper .author {
   font-size: 22px;
   color: #f5cb5c;
+  text-align: right;
   font-weight: 500;
 }
 
@@ -35,6 +36,10 @@
 .flexWrapper {
   display: flex;
   column-gap: 40px;
+}
+
+.question {
+  flex: 1;
 }
 
 .padd {

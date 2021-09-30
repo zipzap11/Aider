@@ -18,7 +18,7 @@ function QuestionCard({ author, title, content, tags, id }) {
     <Card className={classes.card}>
       <div className={classes.headWrapper}>
         <h3>{title}</h3>
-        <div>
+        <div className={classes.nameStampWrapper}>
           <p className={classes.prag}>Created by</p>
           <p className={classes.author}>{author}</p>
         </div>
@@ -26,7 +26,7 @@ function QuestionCard({ author, title, content, tags, id }) {
       <div className={classes.line}></div>
       <div className={classes.padd}>
         <div className={classes.flexWrapper}>
-          <p>{content}</p>
+          <p className={classes.question}>{content}</p>
           <div className={classes.forumIconWrapper}>
             <ForumIcon fontSize="large" className={classes.forumIcon} />
             <p>1 answer</p>

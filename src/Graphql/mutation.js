@@ -7,3 +7,11 @@ export const insertAnswerWithQuestionId = gql`
     }
   }
 `;
+
+export const insertNewQuestion = gql`
+  mutation MyMutation($object: question_insert_input = { code: "", tags: {} }) {
+    insert_question_one(object: $object) {
+      id
+    }
+  }
+`;
