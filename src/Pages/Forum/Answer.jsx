@@ -16,7 +16,7 @@ const str = `
 You can use this code, in your css files. Make sure to connect your html to the correct css files.
 `;
 
-function Answer() {
+function Answer({ str }) {
   const [commentState, setCommentState] = useState(false);
   return (
     <Card>

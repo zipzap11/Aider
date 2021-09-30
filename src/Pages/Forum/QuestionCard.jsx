@@ -7,11 +7,11 @@ import Tag from "../../Components/Tag/Tag";
 import TagContainer from "../../Components/Tag/TagContainer";
 import { useHistory } from "react-router-dom";
 
-function QuestionCard({ author, title, content, tags }) {
+function QuestionCard({ author, title, content, tags, id }) {
   const history = useHistory();
   const detailClickHandler = () => {
     console.log("click");
-    history.push("/forum/detail");
+    history.push(`/forum/detail/${id}`);
   };
 
   return (
@@ -33,13 +33,13 @@ function QuestionCard({ author, title, content, tags }) {
           </div>
         </div>
         <TagContainer>
-          {tags.map((tag, i) => {
-            return <Tag key={i} text={tag} />;
+          {tags.map((tag) => {
+            return <Tag key={tag.id} text={tag.tag} />;
           })}
         </TagContainer>
         <div className={classes.btnWrapper}>
           <Button
-            onClick={detailClickHandler}
+            onClick={() => detailClickHandler()}
             className={classes.btn}
             theme="light"
           >

@@ -8,6 +8,7 @@ function Markdown({ str }) {
   // children={draftToMarkdown(
   //   convertToRaw(editorState.getCurrentContent())
   // )}
+  console.log("from markdown = ", str);
   return (
     <ReactMarkdown
       className={classes.markdown}

@@ -12,7 +12,7 @@ function TagInputCard() {
         html, docker)
       </p>
       <div className={classes.inputWrapper}>
-        <input type="text" max />
+        <input type="text" />
         <Button theme="dark">Add</Button>
       </div>
     </Card>

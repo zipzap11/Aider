@@ -9,7 +9,7 @@ function Forum() {
   return (
     <Switch>
       <Route path="/forum" exact component={MainForum} />
-      <Route path="/forum/detail" exact component={QuestionDetail} />
+      <Route path="/forum/detail/:id" exact component={QuestionDetail} />
       <Route path="/forum/ask" exact component={CreateQuestion} />
     </Switch>
   );

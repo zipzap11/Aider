@@ -18,19 +18,32 @@ This is my html code
 \`\`\`
 `;
 
-function QuestionDetailCard() {
+const tmp = `
+\`\`\`html
+<div class="outer">
+  <div class="inner"></div>
+</div>
+\`\`\`
+`;
+
+const tmp1 = `\`\`\`html\n<div class="outer">\n\t<div class="inner"></div>\n</div>`;
+
+function QuestionDetailCard({ data }) {
   const [commentState, setCommentState] = useState(false);
 
-  console.log(commentState);
+  console.log("Data = ", data);
+  const { title, code, question, tags } = data;
+
   return (
     <Card>
       <div className={classes.contain}>
-        <h3>How to center a div in html</h3>
+        <h3>{title}</h3>
         <div className={classes.line}></div>
-        <Markdown str={str} />
+        <Markdown str={question} />
+        <Markdown str={code} />
         <TagContainer>
-          {["html", "css"].map((tag, i) => {
-            return <Tag key={i} text={tag} />;
+          {tags.map((tag) => {
+            return <Tag key={tag.id} text={tag.tag} />;
           })}
         </TagContainer>
         {!commentState && (

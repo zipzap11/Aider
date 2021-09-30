@@ -12,9 +12,18 @@ import Markdown from "../../Components/Markdown/Markdown";
 import Card from "../../Components/Card/Card";
 import { draftToMarkdown } from "markdown-draft-js";
 import Button from "../../Components/Button/Button";
+import { useSubmitAnswer } from "../../Hooks/useSubmitAnswer";
+import { useParams } from "react-router";
+import { useQuery } from "@apollo/client";
+import { getQuestionDetailById } from "../../Graphql/query";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const { submitAnswer, loadingSubmitAnswer } = useSubmitAnswer();
+  const { id } = useParams();
+  const { data, error, loading } = useQuery(getQuestionDetailById, {
+    variables: { id },
+  });
 
   const editorStateChangeHandler = (editorState) => {
     console.log(
@@ -23,16 +32,37 @@ function QuestionDetail() {
     );
     setEditorState(editorState);
   };
+
+  if (loading) return <p>loading</p>;
+  if (error) return <p>error</p>;
+  const { answers, ...questionData } = data.question_by_pk;
+
+  const submitHandler = () => {
+    const answerObject = {
+      user_id: 1,
+      question_id: id,
+      answer: draftToMarkdown(convertToRaw(editorState.getCurrentContent())),
+    };
+    console.log("answer = ", answerObject);
+    submitAnswer({
+      variables: {
+        object: answerObject,
+      },
+    });
+  };
+
   return (
     <Container>
       <div className={classes.questionContain}>
         <h2>Question</h2>
-        <QuestionDetailCard />
+        <QuestionDetailCard data={questionData} />
       </div>
 
       <div className={classes.answerContain}>
-        <h2>1 Answer</h2>
-        <Answer />
+        <h2>{answers.length} Answer</h2>
+        {answers.map((ans) => {
+          return <Answer key={ans.id} str={ans.answer} />;
+        })}
       </div>
 
       <div className={classes.editorContain}>
@@ -53,7 +83,9 @@ function QuestionDetail() {
 
       <div className={classes.btnContain}>
         <Button theme="light">Cancel</Button>
-        <Button theme="dark">Answer</Button>
+        <Button onClick={submitHandler} theme="dark">
+          Answer
+        </Button>
       </div>
     </Container>
   );

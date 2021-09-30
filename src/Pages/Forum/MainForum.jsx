@@ -4,15 +4,24 @@ import Button from "../../Components/Button/Button";
 import HelpIcon from "@mui/icons-material/Help";
 import classes from "./Forum.module.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { questions } from "./questionList";
+// import { questions } from "./questionList";
 import QuestionCard from "./QuestionCard";
 import { useHistory } from "react-router";
+import { useQuery } from "@apollo/client";
+import { getAllQuestion } from "../../Graphql/query";
+import LoadingQuestionCard from "../../Components/Loading/LoadingQuestionCard";
 
 function MainForum() {
+  const { data, loading, error } = useQuery(getAllQuestion);
   const history = useHistory();
   const createQuestionHandler = () => {
     history.push("/forum/ask");
   };
+
+  console.log(data?.question);
+  if (error) {
+    return <p>{error}</p>;
+  }
   return (
     <Container>
       <div className={classes.contain}>
@@ -46,19 +55,26 @@ function MainForum() {
           </div>
         </div>
       </div>
-      <div className={classes.questionContainer}>
-        {questions.map((q, i) => {
-          return (
-            <QuestionCard
-              key={i}
-              author={q.author}
-              title={q.title}
-              content={q.content}
-              tags={q.tags}
-            />
-          );
+      {loading &&
+        [1, 2, 3].map((i) => {
+          return <LoadingQuestionCard key={i} />;
         })}
-      </div>
+      {!loading && (
+        <div className={classes.questionContainer}>
+          {data.question.map((q) => {
+            return (
+              <QuestionCard
+                key={q.id}
+                id={q.id}
+                author={q.username}
+                title={q.title}
+                content={q.question}
+                tags={q.tags}
+              />
+            );
+          })}
+        </div>
+      )}
     </Container>
   );
 }
