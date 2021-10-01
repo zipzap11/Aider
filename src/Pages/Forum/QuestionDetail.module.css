@@ -26,3 +26,13 @@
 .btnContain button {
   font-size: 24px;
 }
+
+.spinnerContain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  color: #333533;
+}

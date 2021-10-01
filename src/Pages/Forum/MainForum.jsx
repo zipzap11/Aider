@@ -4,7 +4,6 @@ import Button from "../../Components/Button/Button";
 import HelpIcon from "@mui/icons-material/Help";
 import classes from "./Forum.module.css";
 import SearchIcon from "@mui/icons-material/Search";
-// import { questions } from "./questionList";
 import QuestionCard from "./QuestionCard";
 import { useHistory } from "react-router";
 import { useQuery } from "@apollo/client";
@@ -57,7 +56,11 @@ function MainForum() {
       </div>
       {loading &&
         [1, 2, 3].map((i) => {
-          return <LoadingQuestionCard key={i} />;
+          return (
+            <div key={i} className={classes.mb}>
+              <LoadingQuestionCard />
+            </div>
+          );
         })}
       {!loading && (
         <div className={classes.questionContainer}>

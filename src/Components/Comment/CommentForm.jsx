@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React, { useRef } from "react";
 import Button from "../../Components/Button/Button";
 import classes from "./CommentForm.module.css";
@@ -19,13 +20,19 @@ function CommentForm({ onCancel, onSubmit, error, loading }) {
           placeholder="Type your comment here"
         ></textarea>
         {error && <p>Something went wrong...</p>}
-        {loading && <p>Loading...</p>}
-        <div className={classes.btnWrapper}>
-          <Button onClick={onCancel} theme="light">
-            Cancel
-          </Button>
-          <Button theme="dark">Submit</Button>
-        </div>
+        {loading && (
+          <div className={classes.spinnerContain}>
+            <CircularProgress className={classes.spinner} />
+          </div>
+        )}
+        {!loading && (
+          <div className={classes.btnWrapper}>
+            <Button onClick={onCancel} theme="light">
+              Cancel
+            </Button>
+            <Button theme="dark">Submit</Button>
+          </div>
+        )}
       </form>
     </div>
   );

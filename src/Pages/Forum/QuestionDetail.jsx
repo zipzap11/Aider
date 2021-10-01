@@ -17,6 +17,7 @@ import { useQuery } from "@apollo/client";
 import { getQuestionDetailById } from "../../Graphql/query";
 import LoadingQuestionDetail from "../../Components/Loading/LoadingQuestionDetail";
 import { useSubscribeQuestionDetail } from "../../Hooks/useSubscribeQuestionDetail";
+import { CircularProgress } from "@mui/material";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -55,8 +56,9 @@ function QuestionDetail() {
         object: answerObject,
       },
     });
+    setEditorState(EditorState.createEmpty());
   };
-
+  // let load = true;
   return (
     <Container>
       <div className={classes.questionContain}>
@@ -77,29 +79,39 @@ function QuestionDetail() {
           );
         })}
       </div>
-
-      <div className={classes.editorContain}>
-        <h2>Type your answer here</h2>
-        <TextEditor
-          editorState={editorState}
-          onChange={editorStateChangeHandler}
-        />
-      </div>
-      <div className={classes.previewContain}>
-        <h2>Your answer preview</h2>
-        <Card className={classes.card}>
-          <Markdown
-            str={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
-          />
+      {loadingSubmitAnswer && (
+        <Card className={classes.spinnerContain}>
+          <CircularProgress className={classes.spinner} />
         </Card>
-      </div>
+      )}
+      {!loadingSubmitAnswer && (
+        <>
+          <div className={classes.editorContain}>
+            <h2>Type your answer here</h2>
+            <TextEditor
+              editorState={editorState}
+              onChange={editorStateChangeHandler}
+            />
+          </div>
+          <div className={classes.previewContain}>
+            <h2>Your answer preview</h2>
+            <Card className={classes.card}>
+              <Markdown
+                str={draftToMarkdown(
+                  convertToRaw(editorState.getCurrentContent())
+                )}
+              />
+            </Card>
+          </div>
 
-      <div className={classes.btnContain}>
-        <Button theme="light">Cancel</Button>
-        <Button onClick={submitHandler} theme="dark">
-          Answer
-        </Button>
-      </div>
+          <div className={classes.btnContain}>
+            <Button theme="light">Cancel</Button>
+            <Button onClick={submitHandler} theme="dark">
+              Answer
+            </Button>
+          </div>
+        </>
+      )}
     </Container>
   );
 }

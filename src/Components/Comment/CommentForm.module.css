@@ -19,3 +19,13 @@
 .btnWrapper button {
   font-size: 18px;
 }
+
+.spinnerContain {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  color: #333533;
+  height: 90px;
+}

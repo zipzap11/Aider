@@ -8,7 +8,7 @@ import Button from "../Button/Button";
 
 function LoadingQuestionCard() {
   return (
-    <Card style={{ marginBottom: "20px" }} className={classes.card}>
+    <Card className={classes.card}>
       <div className={classes.headWrapper}>
         <Skeleton variant="text" width={"75%"} animation="wave" height="60px" />
         <div style={{ width: "20%" }}>
