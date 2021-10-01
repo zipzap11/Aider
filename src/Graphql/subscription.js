@@ -14,10 +14,22 @@ export const getQuestionDetail = gql`
         code
         id
         user_id
+        answer_comments {
+          author
+          comment
+          id
+          user_id
+        }
       }
       tags {
         tag
         id
+      }
+      question_comments {
+        comment
+        id
+        user_id
+        author
       }
     }
   }

@@ -1,6 +1,5 @@
 import { insertAnswerWithQuestionId } from "../Graphql/mutation";
-import { gql, useMutation } from "@apollo/client";
-import { getQuestionDetailById } from "../Graphql/query";
+import { useMutation } from "@apollo/client";
 
 export function useSubmitAnswer(id) {
   const [

@@ -15,3 +15,19 @@ export const insertNewQuestion = gql`
     }
   }
 `;
+
+export const InsertNewQuestionComment = gql`
+  mutation MyMutation($object: question_comments_insert_input!) {
+    insert_question_comments_one(object: $object) {
+      id
+    }
+  }
+`;
+
+export const InsertNewAnswerComment = gql`
+  mutation MyMutation($object: answer_comments_insert_input!) {
+    insert_answer_comments_one(object: $object) {
+      id
+    }
+  }
+`;

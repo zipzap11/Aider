@@ -6,6 +6,8 @@ import TagContainer from "../../Components/Tag/TagContainer";
 import Markdown from "../../Components/Markdown/Markdown";
 import CommentButton from "../../Components/Button/CommentButton";
 import CommentForm from "../../Components/Comment/CommentForm";
+import CommentList from "../../Components/Comment/CommentList";
+import { useSubmitQuestionComment } from "../../Hooks/useSubmitQuestionComment";
 
 const str = `
 So i wanna center my div inside a parent component which is a div too. How should my css file look like? 
@@ -32,7 +34,22 @@ function QuestionDetailCard({ data }) {
   const [commentState, setCommentState] = useState(false);
 
   console.log("Data = ", data);
-  const { title, code, question, tags } = data;
+  const { title, code, question, tags, question_comments, id } = data;
+  const { submitComment, errorSubmitComment, loadingSubmitComment } =
+    useSubmitQuestionComment();
+
+  const submitHandler = (comment) => {
+    submitComment({
+      variables: {
+        object: {
+          author: "Francisco",
+          comment: comment,
+          question_id: id,
+          user_id: 1,
+        },
+      },
+    });
+  };
 
   return (
     <Card>
@@ -46,6 +63,7 @@ function QuestionDetailCard({ data }) {
             return <Tag key={tag.id} text={tag.tag} />;
           })}
         </TagContainer>
+        <CommentList comments={question_comments} />
         {!commentState && (
           <div className={classes.bottomWrapper}>
             <CommentButton onClick={() => setCommentState(true)} />
@@ -53,7 +71,12 @@ function QuestionDetailCard({ data }) {
           </div>
         )}
         {commentState && (
-          <CommentForm onCancel={() => setCommentState(false)} />
+          <CommentForm
+            onCancel={() => setCommentState(false)}
+            error={errorSubmitComment}
+            loading={loadingSubmitComment}
+            onSubmit={submitHandler}
+          />
         )}
       </div>
     </Card>

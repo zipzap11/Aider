@@ -34,6 +34,12 @@ export const getQuestionDetailById = gql`
         id
         user_id
       }
+      question_comments {
+        comment
+        id
+        user_id
+        username
+      }
     }
   }
 `;

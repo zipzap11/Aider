@@ -16,14 +16,16 @@ const dummyComments = [
   },
 ];
 
-function CommentList() {
+function CommentList({ comments }) {
+  if (comments.length === 0) return <p>No comment yet.</p>;
   return (
     <div className={classes.contain}>
       <h5>Comments</h5>
-      {dummyComments.map((comment) => {
+      {comments.map((comment) => {
         return (
           <Comment
             key={comment.id}
+            userid={comment.user_id}
             author={comment.author}
             comment={comment.comment}
           />

@@ -5,7 +5,7 @@ import UserHeader from "./UserHeader";
 import LoginHeader from "./LoginHeader";
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <div className={classes.header}>

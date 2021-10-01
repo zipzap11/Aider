@@ -23,25 +23,25 @@ function QuestionDetail() {
   const { id } = useParams();
   const { submitAnswer, loadingSubmitAnswer, errorSubmitAnswer } =
     useSubmitAnswer(id);
-  const { data, error, loading } = useQuery(getQuestionDetailById, {
-    variables: { id },
-  });
-  const {
-    errorQuestionData,
-    loadingQuestionData,
-    questionData: test,
-  } = useSubscribeQuestionDetail(id);
-  console.log("questionData = ", test);
+  const { errorQuestionData, loadingQuestionData, questionData } =
+    useSubscribeQuestionDetail(id);
 
   const editorStateChangeHandler = (editorState) => {
     setEditorState(editorState);
   };
 
-  if (loading) {
+  if (loadingQuestionData) {
     return <LoadingQuestionDetail />;
   }
 
-  const { answers, ...questionData } = data.question_by_pk;
+  if (errorQuestionData) {
+    console.log(errorQuestionData);
+    return <p>error</p>;
+  }
+
+  const { answers, ...data } = questionData.question_by_pk;
+  console.log("answers = ", answers);
+  console.log("rest data = ", data);
 
   const submitHandler = () => {
     const answerObject = {
@@ -61,13 +61,20 @@ function QuestionDetail() {
     <Container>
       <div className={classes.questionContain}>
         <h2>Question</h2>
-        <QuestionDetailCard data={questionData} />
+        <QuestionDetailCard data={data} />
       </div>
 
       <div className={classes.answerContain}>
         <h2>{answers.length} Answer</h2>
         {answers.map((ans) => {
-          return <Answer key={ans.id} str={ans.answer} />;
+          return (
+            <Answer
+              key={ans.id}
+              id={ans.id}
+              str={ans.answer}
+              comments={ans.answer_comments}
+            />
+          );
         })}
       </div>
 
