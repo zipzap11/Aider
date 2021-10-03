@@ -8,13 +8,18 @@ import CodeInputCard from "./CodeInputCard";
 import Button from "../../../Components/Button/Button";
 import QuestionDetailPreview from "./QuestionDetailPreview";
 import { EditorState } from "draft-js";
-import { draftToMarkdown } from "markdown-draft-js";
 import { convertToRaw } from "draft-js";
 import { useCreateQuestion } from "../../../Hooks/useCreateQuestion";
+import { draftjsToMd } from "draftjs-md-converter";
+import { Alert, CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
+import { useHistory } from "react-router";
 
 function CreateQuestion() {
+  const history = useHistory();
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
   const { createQuestion, errorCreateQuestion, loadingCreateQuestion } =
     useCreateQuestion();
   const [questionEditorState, setQuestionEditorState] = useState(
@@ -23,7 +28,12 @@ function CreateQuestion() {
   const [codeEditorState, setCodeEditorState] = useState(
     EditorState.createEmpty()
   );
-
+  const questionMarkdownState = draftjsToMd(
+    convertToRaw(questionEditorState.getCurrentContent())
+  );
+  const codeMarkdownState = draftjsToMd(
+    convertToRaw(codeEditorState.getCurrentContent())
+  );
   const addTagHandler = (tag) => {
     setTags((prev) => [...prev, { tag }]);
   };
@@ -36,15 +46,26 @@ function CreateQuestion() {
     setCodeEditorState(editorState);
   };
 
+  const resetInput = () => {
+    setTags([]);
+    setTitle("");
+    setQuestionEditorState(EditorState.createEmpty());
+    setCodeEditorState(EditorState.createEmpty());
+  };
+
+  const backHandler = () => {
+    history.push("/forum");
+  };
+
   const submitHandler = () => {
     const questionObject = {
       user_id: 1,
       username: "Francisco",
       title: title,
-      question: draftToMarkdown(
+      question: draftjsToMd(
         convertToRaw(questionEditorState.getCurrentContent())
       ),
-      code: draftToMarkdown(convertToRaw(codeEditorState.getCurrentContent())),
+      code: draftjsToMd(convertToRaw(codeEditorState.getCurrentContent())),
       tags: {
         data: tags,
       },
@@ -54,38 +75,65 @@ function CreateQuestion() {
         object: questionObject,
       },
     });
+    resetInput();
+    setSubmitted(true);
   };
-
-  if (errorCreateQuestion) return <p>{errorCreateQuestion}</p>;
-  if (loadingCreateQuestion) return <p>loading...</p>;
 
   return (
     <Container className={classes.contain}>
-      <h2>Ask your Question</h2>
-      <TitleInputCard value={title} onChange={setTitle} />
-      <TagInputCard tags={tags} addTag={addTagHandler} />
-      <QuestionInputCard
-        editorState={questionEditorState}
-        onChangeEditorState={questionEditorChangeHandler}
-      />
-      <CodeInputCard
-        editorState={codeEditorState}
-        onChangeEditorState={codeEditorChangeHandler}
-      />
-      <QuestionDetailPreview
-        question={draftToMarkdown(
-          convertToRaw(questionEditorState.getCurrentContent())
-        )}
-        code={draftToMarkdown(
-          convertToRaw(codeEditorState.getCurrentContent())
-        )}
-      />
-      <div className={classes.btnWrapper}>
-        <Button theme="light">Cancel</Button>
-        <Button onClick={submitHandler} theme="dark">
-          Ask
-        </Button>
-      </div>
+      {loadingCreateQuestion && (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <CircularProgress
+            style={{
+              width: "200px",
+              height: "200px",
+              color: "#333533",
+              margin: "20px auto",
+            }}
+          />
+        </Box>
+      )}
+      {!loadingCreateQuestion && (
+        <>
+          <h2>Ask your Question</h2>
+          <TitleInputCard value={title} onChange={setTitle} />
+          <TagInputCard tags={tags} addTag={addTagHandler} />
+          <QuestionInputCard
+            editorState={questionEditorState}
+            onChangeEditorState={questionEditorChangeHandler}
+          />
+          <CodeInputCard
+            editorState={codeEditorState}
+            onChangeEditorState={codeEditorChangeHandler}
+          />
+          <QuestionDetailPreview
+            question={questionMarkdownState}
+            code={codeMarkdownState}
+          />
+          {submitted && errorCreateQuestion && (
+            <Alert variant="standard" severity="error">
+              Something went wrong, try again later.
+            </Alert>
+          )}
+          {submitted && !errorCreateQuestion && (
+            <Alert
+              className={classes.alert}
+              variant="filled"
+              severity="success"
+            >
+              Success creating question.
+            </Alert>
+          )}
+          <div className={classes.btnWrapper}>
+            <Button onClick={backHandler} theme="light">
+              Cancel
+            </Button>
+            <Button onClick={submitHandler} theme="dark">
+              Ask
+            </Button>
+          </div>
+        </>
+      )}
     </Container>
   );
 }

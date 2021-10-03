@@ -9,18 +9,22 @@ import Answer from "./Answer";
 import TextEditor from "../../Components/Editor/TextEditor";
 import Markdown from "../../Components/Markdown/Markdown";
 import Card from "../../Components/Card/Card";
-import { draftToMarkdown } from "markdown-draft-js";
 import Button from "../../Components/Button/Button";
 import { useSubmitAnswer } from "../../Hooks/useSubmitAnswer";
 import { useParams } from "react-router";
-import { useQuery } from "@apollo/client";
-import { getQuestionDetailById } from "../../Graphql/query";
 import LoadingQuestionDetail from "../../Components/Loading/LoadingQuestionDetail";
 import { useSubscribeQuestionDetail } from "../../Hooks/useSubscribeQuestionDetail";
 import { CircularProgress } from "@mui/material";
+import draftToHtml from "draftjs-to-html";
+import { draftjsToMd } from "draftjs-md-converter";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  let markDownState = draftjsToMd(
+    convertToRaw(editorState.getCurrentContent())
+  );
+
+  console.log(markDownState.length);
   const { id } = useParams();
   const { submitAnswer, loadingSubmitAnswer, errorSubmitAnswer } =
     useSubmitAnswer(id);
@@ -28,6 +32,10 @@ function QuestionDetail() {
     useSubscribeQuestionDetail(id);
 
   const editorStateChangeHandler = (editorState) => {
+    console.log(
+      "HTML = ",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
     setEditorState(editorState);
   };
 
@@ -36,21 +44,17 @@ function QuestionDetail() {
   }
 
   if (errorQuestionData) {
-    console.log(errorQuestionData);
     return <p>error</p>;
   }
 
   const { answers, ...data } = questionData.question_by_pk;
-  console.log("answers = ", answers);
-  console.log("rest data = ", data);
 
   const submitHandler = () => {
     const answerObject = {
       user_id: 1,
       question_id: id,
-      answer: draftToMarkdown(convertToRaw(editorState.getCurrentContent())),
+      answer: markDownState,
     };
-    console.log("answer = ", answerObject);
     submitAnswer({
       variables: {
         object: answerObject,
@@ -96,14 +100,11 @@ function QuestionDetail() {
           <div className={classes.previewContain}>
             <h2>Your answer preview</h2>
             <Card className={classes.card}>
-              <Markdown
-                str={draftToMarkdown(
-                  convertToRaw(editorState.getCurrentContent())
-                )}
-              />
+              <Markdown str={markDownState} />
             </Card>
           </div>
 
+          <p>{errorSubmitAnswer && errorSubmitAnswer.message}</p>
           <div className={classes.btnContain}>
             <Button theme="light">Cancel</Button>
             <Button onClick={submitHandler} theme="dark">

@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// import { getStorage } from "@firebase/storage";
+import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
@@ -12,4 +11,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APPID,
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+// const storage = getStorage();
+const storage = getStorage(app, "gs://aider-11f0f.appspot.com");
+
+export default storage;

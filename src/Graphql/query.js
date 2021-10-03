@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const getAllQuestion = gql`
+export const GetAllQuestion = gql`
   query MyQuery {
     question {
       id
@@ -38,7 +38,27 @@ export const getQuestionDetailById = gql`
         comment
         id
         user_id
-        username
+        author
+      }
+    }
+  }
+`;
+
+export const GetQuestionsByTag = gql`
+  query MyQuery($tag: String!) {
+    question(where: { tags: { tag: { _eq: $tag } } }) {
+      username
+      user_id
+      title
+      code
+      id
+      question
+      tags {
+        id
+        tag
+      }
+      answers {
+        answer
       }
     }
   }

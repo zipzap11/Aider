@@ -8,6 +8,7 @@ function TagContainer({ children }) {
         columnGap: "10px",
         margin: "5px 0",
         marginBottom: "15px",
+        flexWrap: "wrap",
       }}
     >
       {children}
