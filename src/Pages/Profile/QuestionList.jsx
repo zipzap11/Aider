@@ -11,7 +11,7 @@ function QuestionList() {
         <h2>Your Question</h2>
         <div className={classes.questionsWrapper}>
           {questions.map((question) => {
-            return <MyQuestion />;
+            return <MyQuestion key={question.id} />;
           })}
         </div>
       </div>

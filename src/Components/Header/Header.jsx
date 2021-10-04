@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./Header.module.css";
 import { ReactComponent as Logo } from "./Assets/logo4.svg";
 import UserHeader from "./UserHeader";
 import LoginHeader from "./LoginHeader";
+import { useSelector } from "react-redux";
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(true);
-
+  const isLogin = useSelector((state) => state.user.isLogin);
+  console.log("is login = ", isLogin);
   return (
     <div className={classes.header}>
       <div className={classes.container}>

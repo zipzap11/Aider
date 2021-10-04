@@ -31,3 +31,11 @@ export const InsertNewAnswerComment = gql`
     }
   }
 `;
+
+export const InsertNewUser = gql`
+  mutation MyMutation($object: user_insert_input!) {
+    insert_user_one(object: $object) {
+      uid
+    }
+  }
+`;

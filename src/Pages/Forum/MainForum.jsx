@@ -85,9 +85,9 @@ function MainForum() {
                 />
               </div>
               <div>
-                <Button onClick={searchHandler} theme="light">
+                <button onClick={searchHandler} className={classes.none}>
                   <SearchIcon className={classes.searchBtn} />
-                </Button>
+                </button>
               </div>
             </div>
           </div>

@@ -63,3 +63,11 @@ export const GetQuestionsByTag = gql`
     }
   }
 `;
+
+export const GetUserPoint = gql`
+  query MyQuery($uid: String!) {
+    user_by_pk(uid: $uid) {
+      point
+    }
+  }
+`;

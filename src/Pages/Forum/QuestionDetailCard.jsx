@@ -9,27 +9,6 @@ import CommentForm from "../../Components/Comment/CommentForm";
 import CommentList from "../../Components/Comment/CommentList";
 import { useSubmitQuestionComment } from "../../Hooks/useSubmitQuestionComment";
 
-const str = `
-So i wanna center my div inside a parent component which is a div too. How should my css file look like? 
-
-This is my html code
-\`\`\`html
-<div class="outer">
-     <div ="inner"></div>
-</div> 
-\`\`\`
-`;
-
-const tmp = `
-\`\`\`html
-<div class="outer">
-  <div class="inner"></div>
-</div>
-\`\`\`
-`;
-
-const tmp1 = `\`\`\`html\n<div class="outer">\n\t<div class="inner"></div>\n</div>`;
-
 function QuestionDetailCard({ data }) {
   const [commentState, setCommentState] = useState(false);
 

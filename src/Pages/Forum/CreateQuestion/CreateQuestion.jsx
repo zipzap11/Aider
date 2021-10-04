@@ -14,12 +14,16 @@ import { draftjsToMd } from "draftjs-md-converter";
 import { Alert, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 function CreateQuestion() {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const username = useSelector((state) => state.user.username);
+  const uid = useSelector((state) => state.user.uid);
+
   const { createQuestion, errorCreateQuestion, loadingCreateQuestion } =
     useCreateQuestion();
   const [questionEditorState, setQuestionEditorState] = useState(
@@ -59,8 +63,8 @@ function CreateQuestion() {
 
   const submitHandler = () => {
     const questionObject = {
-      user_id: 1,
-      username: "Francisco",
+      user_id: uid,
+      username: username,
       title: title,
       question: draftjsToMd(
         convertToRaw(questionEditorState.getCurrentContent())

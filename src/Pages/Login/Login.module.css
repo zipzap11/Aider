@@ -33,3 +33,9 @@
   margin-top: 10px;
   padding: 0.8rem;
 }
+
+.spinnerContain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

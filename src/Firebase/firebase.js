@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 // import { getStorage } from "@firebase/storage";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -14,5 +15,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const storage = getStorage();
 const storage = getStorage(app, "gs://aider-11f0f.appspot.com");
-
-export default storage;
+const auth = getAuth(app);
+export { storage, auth };
