@@ -50,7 +50,7 @@ function TextEditor({ editorState, onChange }) {
           borderRadius: "7px",
           padding: "1.2rem",
           backgroundColor: "white",
-          boxShadow: "3px 3px 4px 0px #00000040",
+          boxShadow: "1px 1px 4px 0px #00000040",
         }}
         toolbar={{
           image: { uploadCallback: uploadImageCallback },

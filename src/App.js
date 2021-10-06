@@ -18,6 +18,7 @@ import EditQuestion from "./Pages/Profile/EditQuestion";
 import PublicRoute from "./Components/PrivateRoute/PublicRoute";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Blog from "./Pages/Blog/Blog";
+import BlogList from "./Pages/Profile/BlogList";
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/forum" component={Forum} />
             <PrivateRoute path="/user-question" Component={QuestionList} />
+            <PrivateRoute path="/user-blog" Component={BlogList} />
             <PublicRoute path="/login" Component={Login} />
             <PublicRoute path="/register" Component={Register} />
             <PrivateRoute

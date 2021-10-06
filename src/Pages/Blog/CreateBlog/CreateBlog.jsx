@@ -19,7 +19,8 @@ import AlertMessage from "../../../Components/Alert/AlertMessage";
 import CenteredSpinner from "../../../Components/Loading/CenteredSpinner";
 
 function CreateBlog() {
-  const { createblog, errorCreateBlog, loadingCreateBlog } = useCreateBlog();
+  const uid = useSelector((state) => state.user.uid);
+  const { createblog, errorCreateBlog, loadingCreateBlog } = useCreateBlog(uid);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [url, setUrl] = useState("");
@@ -28,7 +29,6 @@ function CreateBlog() {
   const imageRef = useRef();
   const [loadingImage, setImageLoading] = useState(false);
   const username = useSelector((state) => state.user.username);
-  const uid = useSelector((state) => state.user.uid);
   const history = useHistory();
 
   const editorChangeHandler = (state) => {

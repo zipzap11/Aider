@@ -26,7 +26,6 @@ function BlogDetail() {
   });
   const { blogComments, errorBlogComments, loadingBlogComments } =
     useSubscribeBlogComments(id);
-  console.log("comment", blogComments);
   const submitCommentHandler = (comment) => {
     submitComment({
       variables: {

@@ -6,9 +6,12 @@ import classes from "./MainBlog.module.css";
 import Button from "../../../Components/Button/Button";
 import { useHistory } from "react-router";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import { useQuery } from "@apollo/client";
+import { GetBlogs } from "../../../Graphql/query";
 
 function MainBlog() {
   const history = useHistory();
+  const { data, error, loading } = useQuery(GetBlogs);
   const clickHandler = () => {
     history.push("/blog/create-blog");
   };
@@ -26,7 +29,7 @@ function MainBlog() {
           </Button>
         </div>
       </div>
-      <BlogsContainer />
+      <BlogsContainer data={data} error={error} loading={loading} />
     </Container>
   );
 }

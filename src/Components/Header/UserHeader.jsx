@@ -14,6 +14,7 @@ function UserHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
   const username = useSelector((state) => state.user.username);
   const uid = useSelector((state) => state.user.uid);
+  const url = useSelector((state) => state.user.profilePicture);
   const {
     data: userData,
     error: errorGetUserPoint,
@@ -47,10 +48,13 @@ function UserHeader() {
         onMouseLeave={closeHandler}
         className={classes.profileBadge}
       >
-        <Avatar
-          style={{ backgroundColor: "#333533" }}
-          className={classes.avatar}
-        />
+        {!url && (
+          <Avatar
+            style={{ backgroundColor: "#333533" }}
+            className={classes.avatar}
+          />
+        )}
+        {url && <img src={url} alt="profile-pict" />}
         <div className={classes.displayName}>
           <h3>{username}</h3>
           {!loadingGetUserPoint && <p>{userData.user_by_pk?.point || 0}pts</p>}

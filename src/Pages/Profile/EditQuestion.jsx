@@ -3,7 +3,7 @@ import Container from "../../Components/Container/Container";
 import classes from "./EditQuestion.module.css";
 import TitleInputCard from "../Forum/CreateQuestion/TitleInputCard";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
-import { draftjsToMd, mdToDraftjs } from "draftjs-md-converter";
+import { draftjsToMd } from "draftjs-md-converter";
 import QuestionInputCard from "../Forum/CreateQuestion/QuestionInputCard";
 import TagInputCard from "../Forum/CreateQuestion/TagInputCard";
 import CodeInputCard from "../Forum/CreateQuestion/CodeInputCard";
@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 import { useUpdateQuestion } from "../../Hooks/useUpdateQuestion";
 import CenteredSpinner from "../../Components/Loading/CenteredSpinner";
 import { markdownToDraft } from "markdown-draft-js";
+import AlertMessage from "../../Components/Alert/AlertMessage";
 
 function EditQuestion(props) {
   const history = useHistory();
@@ -31,6 +32,7 @@ function EditQuestion(props) {
   const { updateQuestion, errorUpdateQuestion, loadingUpdateQuestion } =
     useUpdateQuestion(user_id);
   const [title, setTitle] = useState(titleProps);
+  const [submitted, setSubmitted] = useState(false);
   const [question, setQuestion] = useState(
     EditorState.createWithContent(
       convertFromRaw(markdownToDraft(questionProps))
@@ -66,8 +68,13 @@ function EditQuestion(props) {
     history.goBack();
   };
 
+  const closeHandler = () => {
+    setSubmitted(false);
+  };
+
   const saveHandler = () => {
     console.log("tags = ", tags);
+    setSubmitted(true);
     updateQuestion({
       variables: {
         id: id,
@@ -79,60 +86,25 @@ function EditQuestion(props) {
     });
   };
 
-  if (errorUpdateQuestion) {
-    console.log("error = ", errorUpdateQuestion);
-    return <p>{errorUpdateQuestion.message}</p>;
-  }
-
   return (
     <Container className={classes.contain}>
-      {/* {loadingCreateQuestion && (
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <CircularProgress
-          style={{
-            width: "200px",
-            height: "200px",
-            color: "#333533",
-            margin: "20px auto",
-          }}
-        />
-      </Box>
-    )} */}
-      {/* {!loadingCreateQuestion && ( */}
-      <>
-        <h2>Edit your Question</h2>
-        <TitleInputCard value={title} onChange={setTitle} />
-        <TagInputCard
-          tags={tags}
-          addTag={addTagHandler}
-          removeTag={removeTagHandler}
-        />
-        <QuestionInputCard
-          editorState={question}
-          onChangeEditorState={questionChangeHandler}
-        />
-        <CodeInputCard
-          editorState={code}
-          onChangeEditorState={codeChangeHandler}
-        />
-        <QuestionDetailPreview
-          question={questionMarkdown}
-          code={codeMarkdown}
-        />
-        {/* {submitted && errorCreateQuestion && (
-          <Alert variant="standard" severity="error">
-            Something went wrong, try again later.
-          </Alert>
-        )}
-        {submitted && !errorCreateQuestion && (
-          <Alert
-            className={classes.alert}
-            variant="filled"
-            severity="success"
-          >
-            Success creating question.
-          </Alert>
-        )} */}
+      <h2>Edit your Question</h2>
+      <TitleInputCard value={title} onChange={setTitle} />
+      <TagInputCard
+        tags={tags}
+        addTag={addTagHandler}
+        removeTag={removeTagHandler}
+      />
+      <QuestionInputCard
+        editorState={question}
+        onChangeEditorState={questionChangeHandler}
+      />
+      <CodeInputCard
+        editorState={code}
+        onChangeEditorState={codeChangeHandler}
+      />
+      <QuestionDetailPreview question={questionMarkdown} code={codeMarkdown} />
+      {!loadingUpdateQuestion && (
         <div className={classes.btnWrapper}>
           <Button onClick={cancelHandler} theme="light">
             Cancel
@@ -141,8 +113,20 @@ function EditQuestion(props) {
             Save
           </Button>
         </div>
-      </>
-      {/* )} */}
+      )}
+      {loadingUpdateQuestion && <CenteredSpinner />}
+      <AlertMessage
+        show={submitted && !errorUpdateQuestion && !loadingUpdateQuestion}
+        message="Succesfully update question."
+        type="success"
+        onClose={closeHandler}
+      />
+      <AlertMessage
+        show={submitted && errorUpdateQuestion && !loadingUpdateQuestion}
+        message="Something went wrong."
+        type="error"
+        onClose={closeHandler}
+      />
     </Container>
   );
 }

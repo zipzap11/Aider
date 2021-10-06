@@ -126,3 +126,19 @@ export const GetBlogDetail = gql`
     }
   }
 `;
+
+export const GetUserBlogs = gql`
+  query MyQuery($user_id: String!) {
+    blogs(where: { user_id: { _eq: $user_id } }) {
+      author
+      id
+      image
+      title
+      user_id
+      blog_tags {
+        id
+        tag
+      }
+    }
+  }
+`;

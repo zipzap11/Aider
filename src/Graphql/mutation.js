@@ -98,3 +98,17 @@ export const SubmitBlogComment = gql`
     }
   }
 `;
+
+export const DeleteUserBlog = gql`
+  mutation MyMutation($id: Int!) {
+    delete_blog_comments(where: { blog_id: { _eq: $id } }) {
+      affected_rows
+    }
+    delete_blog_tag(where: { blog_id: { _eq: $id } }) {
+      affected_rows
+    }
+    delete_blogs(where: { id: { _eq: $id } }) {
+      affected_rows
+    }
+  }
+`;
