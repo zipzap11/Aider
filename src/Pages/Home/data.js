@@ -2,7 +2,7 @@ export const bannerData = [
   {
     title: "Blogs",
     content:
-      "Start writing some useful blog that will help other people. Get some feedback by other comment. Improve your writing skill. Become a professional blogger.",
+      "Start writing some useful blog that will help other people. Get some feedback by other comment. Improve your writing skill. Become professional blogger.",
     action: "Start Blogging",
   },
   {

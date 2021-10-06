@@ -12,31 +12,35 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "./Firebase/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "./Store/userSlice";
+import { login, logout } from "./Store/userSlice";
 import { CircularProgress } from "@mui/material";
-import { useGetUserPoint } from "./Hooks/useGetUserPoint";
-
+import EditQuestion from "./Pages/Profile/EditQuestion";
+import PublicRoute from "./Components/PrivateRoute/PublicRoute";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Blog from "./Pages/Blog/Blog";
 function App() {
   const [loading, setLoading] = useState(true);
-  const [userAuth, setUserAuth] = useState(null);
-  const { getUserPoint, userData, errorGetUserPoint, loadingGetUserPoint } =
-    useGetUserPoint();
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("useEffect");
-    onAuthStateChanged(
+    const unsubs = onAuthStateChanged(
       auth,
       (userAuth) => {
-        console.log(userAuth);
+        console.log("userAuth = ", userAuth);
         if (userAuth !== null) {
-          getUserPoint({
-            variables: {
+          console.log("masuk if");
+          dispatch(
+            login({
+              username: userAuth.displayName,
               uid: userAuth.uid,
-            },
-          });
-          setUserAuth(userAuth);
+              profilePictureUrl: userAuth.photoURL,
+              point: null,
+            })
+          );
+          setLoading(false);
         } else {
+          dispatch(logout());
           setLoading(false);
         }
       },
@@ -45,22 +49,8 @@ function App() {
         setLoading(false);
       }
     );
-  }, [dispatch, getUserPoint]);
-
-  useEffect(() => {
-    if (userAuth && !loadingGetUserPoint && userData) {
-      console.log("point", userData.user_by_pk.point);
-      dispatch(
-        login({
-          username: userAuth.displayName,
-          uid: userAuth.uid,
-          profilePictureUrl: userAuth.photoURL,
-          point: userData.user_by_pk.point,
-        })
-      );
-      setLoading(false);
-    }
-  }, [userAuth, loadingGetUserPoint, userData, dispatch]);
+    return unsubs;
+  }, [dispatch]);
 
   return (
     <div>
@@ -78,9 +68,14 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/forum" component={Forum} />
-            <Route path="/profile" component={QuestionList} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <PrivateRoute path="/user-question" Component={QuestionList} />
+            <PublicRoute path="/login" Component={Login} />
+            <PublicRoute path="/register" Component={Register} />
+            <PrivateRoute
+              path="/edit-question/:questionId"
+              Component={EditQuestion}
+            />
+            <Route path="/blog" component={Blog} />
           </Switch>
           <Footer />
         </>

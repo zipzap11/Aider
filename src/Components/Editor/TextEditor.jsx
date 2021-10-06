@@ -5,7 +5,7 @@ import { storage } from "../../Firebase/firebase";
 
 function TextEditor({ editorState, onChange }) {
   const uploadImageCallback = async (file) => {
-    const fileref = ref(storage, `blog-img/${file.name}`);
+    const fileref = ref(storage, `question/${file.name}`);
     // const uploadTask = uploadBytes(fileref, file);
     async function uploadImg() {
       const imgUrl = await uploadBytes(fileref, file).then(() =>

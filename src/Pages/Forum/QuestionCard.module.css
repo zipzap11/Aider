@@ -88,8 +88,9 @@
   align-items: flex-end;
 }
 .btnWrapper p {
-  color: white;
-  font-weight: 200;
+  color: #333533;
+  font-weight: 300;
+  font-size: 14px;
 }
 
 .card {

@@ -2,7 +2,7 @@
 .btnLight {
   border: none;
   outline: none;
-  box-shadow: 2px 2px 4px 0px #00000040;
+  box-shadow: 1px 1px 4px 1px #00000020;
   padding: 0.4rem 1rem;
   border-radius: 7px;
   transition: 0.3s ease-in-out;
@@ -19,7 +19,7 @@
 }
 
 .btnLight:hover {
-  background-color: #b4bdb8;
+  background-color: #ebe8e8;
 }
 
 .btnDark:hover {

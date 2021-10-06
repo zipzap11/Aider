@@ -8,8 +8,12 @@ export const GetAllQuestion = gql`
       user_id
       title
       username
+      timestamp
       tags {
         tag
+        id
+      }
+      answers {
         id
       }
     }
@@ -53,12 +57,13 @@ export const GetQuestionsByTag = gql`
       code
       id
       question
+      timestamp
       tags {
         id
         tag
       }
       answers {
-        answer
+        id
       }
     }
   }
@@ -68,6 +73,56 @@ export const GetUserPoint = gql`
   query MyQuery($uid: String!) {
     user_by_pk(uid: $uid) {
       point
+    }
+  }
+`;
+
+export const GetUserQuestions = gql`
+  query MyQuery($user_id: String!) {
+    question(where: { user_id: { _eq: $user_id } }) {
+      id
+      question
+      code
+      title
+      user_id
+      username
+      tags {
+        id
+        tag
+        question_id
+      }
+    }
+  }
+`;
+export const GetBlogs = gql`
+  query MyQuery {
+    blogs {
+      id
+      image
+      title
+      user_id
+      author
+      blog_tags {
+        id
+        tag
+      }
+    }
+  }
+`;
+
+export const GetBlogDetail = gql`
+  query MyQuery($id: Int!) {
+    blogs_by_pk(id: $id) {
+      author
+      content
+      id
+      image
+      title
+      user_id
+      blog_tags {
+        id
+        tag
+      }
     }
   }
 `;

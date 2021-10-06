@@ -6,8 +6,9 @@ import ForumIcon from "@mui/icons-material/Forum";
 import Tag from "../../Components/Tag/Tag";
 import TagContainer from "../../Components/Tag/TagContainer";
 import { useHistory } from "react-router-dom";
+import Markdown from "../../Components/Markdown/Markdown";
 
-function QuestionCard({ author, title, content, tags, id }) {
+function QuestionCard({ author, title, content, tags, id, answer, timestamp }) {
   const history = useHistory();
   const detailClickHandler = () => {
     console.log("click");
@@ -26,10 +27,13 @@ function QuestionCard({ author, title, content, tags, id }) {
       <div className={classes.line}></div>
       <div className={classes.padd}>
         <div className={classes.flexWrapper}>
-          <p className={classes.question}>{content}</p>
+          {/* <p className={classes.question}>{content}</p> */}
+          <div className={classes.question}>
+            <Markdown str={content} />
+          </div>
           <div className={classes.forumIconWrapper}>
             <ForumIcon fontSize="large" className={classes.forumIcon} />
-            <p>1 answer</p>
+            <p>{answer} answer</p>
           </div>
         </div>
         <TagContainer>
@@ -45,7 +49,7 @@ function QuestionCard({ author, title, content, tags, id }) {
           >
             Details
           </Button>
-          <p>1 hour ago</p>
+          <p>{timestamp}</p>
         </div>
       </div>
     </Card>

@@ -11,10 +11,12 @@ import { EditorState } from "draft-js";
 import { convertToRaw } from "draft-js";
 import { useCreateQuestion } from "../../../Hooks/useCreateQuestion";
 import { draftjsToMd } from "draftjs-md-converter";
-import { Alert, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import date from "date-and-time";
+import AlertMessage from "../../../Components/Alert/AlertMessage";
 
 function CreateQuestion() {
   const history = useHistory();
@@ -25,7 +27,7 @@ function CreateQuestion() {
   const uid = useSelector((state) => state.user.uid);
 
   const { createQuestion, errorCreateQuestion, loadingCreateQuestion } =
-    useCreateQuestion();
+    useCreateQuestion(uid);
   const [questionEditorState, setQuestionEditorState] = useState(
     EditorState.createEmpty()
   );
@@ -42,12 +44,20 @@ function CreateQuestion() {
     setTags((prev) => [...prev, { tag }]);
   };
 
+  const removeTagHandler = (removedTag) => {
+    setTags((prev) => prev.filter(({ tag }) => tag !== removedTag));
+  };
+
   const questionEditorChangeHandler = (editorState) => {
     setQuestionEditorState(editorState);
   };
 
   const codeEditorChangeHandler = (editorState) => {
     setCodeEditorState(editorState);
+  };
+
+  const handleClose = () => {
+    setSubmitted(false);
   };
 
   const resetInput = () => {
@@ -60,7 +70,10 @@ function CreateQuestion() {
   const backHandler = () => {
     history.push("/forum");
   };
-
+  console.log(
+    "DATE ================== ",
+    date.format(new Date(), "DD-MM-YYYY")
+  );
   const submitHandler = () => {
     const questionObject = {
       user_id: uid,
@@ -70,10 +83,13 @@ function CreateQuestion() {
         convertToRaw(questionEditorState.getCurrentContent())
       ),
       code: draftjsToMd(convertToRaw(codeEditorState.getCurrentContent())),
+      timestamp: date.format(new Date(), "DD-MM-YYYY"),
       tags: {
         data: tags,
       },
     };
+    console.log("QUESTION OBJECT = ", questionObject);
+
     createQuestion({
       variables: {
         object: questionObject,
@@ -101,7 +117,11 @@ function CreateQuestion() {
         <>
           <h2>Ask your Question</h2>
           <TitleInputCard value={title} onChange={setTitle} />
-          <TagInputCard tags={tags} addTag={addTagHandler} />
+          <TagInputCard
+            tags={tags}
+            addTag={addTagHandler}
+            removeTag={removeTagHandler}
+          />
           <QuestionInputCard
             editorState={questionEditorState}
             onChangeEditorState={questionEditorChangeHandler}
@@ -114,20 +134,6 @@ function CreateQuestion() {
             question={questionMarkdownState}
             code={codeMarkdownState}
           />
-          {submitted && errorCreateQuestion && (
-            <Alert variant="standard" severity="error">
-              Something went wrong, try again later.
-            </Alert>
-          )}
-          {submitted && !errorCreateQuestion && (
-            <Alert
-              className={classes.alert}
-              variant="filled"
-              severity="success"
-            >
-              Success creating question.
-            </Alert>
-          )}
           <div className={classes.btnWrapper}>
             <Button onClick={backHandler} theme="light">
               Cancel
@@ -138,6 +144,18 @@ function CreateQuestion() {
           </div>
         </>
       )}
+      <AlertMessage
+        show={submitted && !errorCreateQuestion && !loadingCreateQuestion}
+        message="Succesfully create question."
+        type="success"
+        onClose={handleClose}
+      />
+      <AlertMessage
+        show={submitted && errorCreateQuestion && !loadingCreateQuestion}
+        message="Something went wrong."
+        type="error"
+        onClose={handleClose}
+      />
     </Container>
   );
 }

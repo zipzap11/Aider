@@ -5,7 +5,7 @@ import Button from "../../../Components/Button/Button";
 import TagContainer from "../../../Components/Tag/TagContainer";
 import Tag from "../../../Components/Tag/Tag";
 
-function TagInputCard({ tags, addTag }) {
+function TagInputCard({ tags, addTag, removeTag }) {
   const [tag, setTag] = useState("");
 
   const checkSameTag = () => {
@@ -22,6 +22,7 @@ function TagInputCard({ tags, addTag }) {
       alert("There is same tag, make sure every tag is unique!");
     }
   };
+
   return (
     <Card className={classes.contain}>
       <h3>Tags</h3>
@@ -31,7 +32,7 @@ function TagInputCard({ tags, addTag }) {
       </p>
       <TagContainer>
         {tags.map(({ tag }) => (
-          <Tag text={tag} key={tag} />
+          <Tag onRemove={removeTag} text={tag} key={tag} removeable={true} />
         ))}
       </TagContainer>
       <div className={classes.inputWrapper}>

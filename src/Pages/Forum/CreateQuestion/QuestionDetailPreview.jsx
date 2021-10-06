@@ -4,6 +4,8 @@ import Markdown from "../../../Components/Markdown/Markdown";
 import classes from "./QuestionDetailPreview.module.css";
 
 function QuestionDetailPreview({ question, code }) {
+  console.log("QUESTION = ", question);
+  console.log("CODE = ", code);
   return (
     <div className={classes.contain}>
       <h3>Your question detail preview</h3>

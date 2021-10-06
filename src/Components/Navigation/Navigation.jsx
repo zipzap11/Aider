@@ -12,7 +12,7 @@ function Navigation() {
           </NavLink>
         </li>
         <li>
-          <NavLink exact activeClassName={classes.active} to="/blog">
+          <NavLink activeClassName={classes.active} to="/blog">
             Blogs
           </NavLink>
         </li>

@@ -12,6 +12,7 @@ import LoadingQuestionCard from "../../Components/Loading/LoadingQuestionCard";
 import Card from "../../Components/Card/Card";
 import { useState } from "react";
 import { useGetQuestionByTag } from "../../Hooks/useGetQuestionByTag";
+import BorderAllOutlinedIcon from "@mui/icons-material/BorderAllOutlined";
 
 function MainForum() {
   const { data, loading, error } = useQuery(GetAllQuestion);
@@ -30,9 +31,7 @@ function MainForum() {
   };
 
   const searchHandler = () => {
-    console.log("clicked");
     if (tag.trim().length === 0) return;
-    console.log("clicked", tag);
     getQuestionsByTag({
       variables: {
         tag: tag,
@@ -41,21 +40,17 @@ function MainForum() {
     setMode("search");
   };
 
-  console.log(data?.question);
   if (error || errorQuestionsByTag) {
     return <p>{error}</p>;
   }
-  // if (loadingQuestionsByTag) return <p>loading...</p>;
-  const showedData = mode === "all" ? data : questionsByTag;
-  console.log("SHOWED DATA = ", showedData);
-  console.log("data by tag = ", questionsByTag);
-  console.log("loadingQuestionsByTag = ", loadingQuestionsByTag);
 
+  const showedData = mode === "all" ? data : questionsByTag;
   const isLoading = loading || loadingQuestionsByTag;
+  console.log(showedData);
 
   return (
     <Container>
-      <div className={classes.contain}>
+      <div className={classes.containCenter}>
         <div className={classes.topleft}>
           <h2>Ask and Answer</h2>
           <p>
@@ -72,23 +67,33 @@ function MainForum() {
           >
             Ask a Question <HelpIcon color="" />
           </Button>
-          <div className={classes.search}>
-            <p>Search by tag</p>
-            <div className={classes.inputWrapper}>
-              <div className={classes.input}>
-                <span className={classes.pgr}>#</span>
-                <input
-                  value={tag}
-                  onChange={(e) => setTag(e.target.value)}
-                  type="text"
-                  placeholder="i.e java"
-                />
-              </div>
-              <div>
-                <button onClick={searchHandler} className={classes.none}>
-                  <SearchIcon className={classes.searchBtn} />
-                </button>
-              </div>
+        </div>
+      </div>
+      <div className={classes.containTop}>
+        <Button
+          className={classes.showAllBtn}
+          theme="light"
+          onClick={() => setMode("all")}
+        >
+          <BorderAllOutlinedIcon />
+          Show all
+        </Button>
+        <div className={classes.search}>
+          <p>Search by tag</p>
+          <div className={classes.inputWrapper}>
+            <div className={classes.input}>
+              <span className={classes.pgr}>#</span>
+              <input
+                value={tag}
+                onChange={(e) => setTag(e.target.value)}
+                type="text"
+                placeholder="i.e java"
+              />
+            </div>
+            <div>
+              <button onClick={searchHandler} className={classes.none}>
+                <SearchIcon className={classes.searchBtn} />
+              </button>
             </div>
           </div>
         </div>
@@ -109,6 +114,7 @@ function MainForum() {
             </Card>
           )}
           {showedData?.question.map((q) => {
+            console.log("q ========= ", q);
             return (
               <QuestionCard
                 key={q.id}
@@ -117,6 +123,8 @@ function MainForum() {
                 title={q.title}
                 content={q.question}
                 tags={q.tags}
+                answer={q.answers.length}
+                timestamp={q.timestamp}
               />
             );
           })}

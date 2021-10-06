@@ -1,6 +1,13 @@
-.contain {
+.containCenter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.containTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* background-color: black; */
 }
 
 .topleft h2 {
@@ -8,6 +15,7 @@
 }
 .topleft p {
   font-size: 18px;
+  margin: 0;
 }
 
 .topright {
@@ -26,8 +34,7 @@
   align-items: center;
   justify-content: center;
 }
-
-.btn {
+.topright .btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,6 +42,10 @@
   font-size: 20px;
   align-self: flex-end;
   justify-self: flex-end;
+}
+
+.btn:hover {
+  background-color: #ebe8e8;
 }
 
 .input {
@@ -85,7 +96,6 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
-  margin-top: 10px;
 }
 
 .search p {
@@ -119,4 +129,13 @@
   width: fit-content;
   display: flex;
   align-items: flex-start;
+}
+
+.showAllBtn {
+  width: fit-content;
+  margin-top: 5px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  column-gap: 3px;
 }

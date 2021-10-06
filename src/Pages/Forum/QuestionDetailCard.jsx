@@ -8,11 +8,14 @@ import CommentButton from "../../Components/Button/CommentButton";
 import CommentForm from "../../Components/Comment/CommentForm";
 import CommentList from "../../Components/Comment/CommentList";
 import { useSubmitQuestionComment } from "../../Hooks/useSubmitQuestionComment";
+import { useSelector } from "react-redux";
 
 function QuestionDetailCard({ data }) {
   const [commentState, setCommentState] = useState(false);
 
   console.log("Data = ", data);
+  const username = useSelector((state) => state.user.username);
+  const uid = useSelector((state) => state.user.uid);
   const { title, code, question, tags, question_comments, id } = data;
   const { submitComment, errorSubmitComment, loadingSubmitComment } =
     useSubmitQuestionComment();
@@ -21,10 +24,10 @@ function QuestionDetailCard({ data }) {
     submitComment({
       variables: {
         object: {
-          author: "Francisco",
+          author: username,
           comment: comment,
           question_id: id,
-          user_id: 1,
+          user_id: uid,
         },
       },
     });

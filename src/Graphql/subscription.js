@@ -34,3 +34,14 @@ export const getQuestionDetail = gql`
     }
   }
 `;
+
+export const SubscribeBlogComments = gql`
+  subscription MySubscription($id: Int!) {
+    blog_comments(where: { blog_id: { _eq: $id } }) {
+      author
+      comment
+      id
+      user_id
+    }
+  }
+`;

@@ -22,11 +22,13 @@
   align-items: center;
   justify-content: space-between;
   transition: 0.3s ease;
+  position: relative;
 }
 
 .avatar {
   margin-right: 7px;
   background-color: #333533;
+  color: #333533;
 }
 
 .displayName {

@@ -17,6 +17,7 @@ import { useSubscribeQuestionDetail } from "../../Hooks/useSubscribeQuestionDeta
 import { CircularProgress } from "@mui/material";
 import draftToHtml from "draftjs-to-html";
 import { draftjsToMd } from "draftjs-md-converter";
+import { useSelector } from "react-redux";
 
 function QuestionDetail() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -26,6 +27,8 @@ function QuestionDetail() {
 
   console.log(markDownState.length);
   const { id } = useParams();
+  const username = useSelector((state) => state.user.username);
+  const uid = useSelector((state) => state.user.uid);
   const { submitAnswer, loadingSubmitAnswer, errorSubmitAnswer } =
     useSubmitAnswer(id);
   const { errorQuestionData, loadingQuestionData, questionData } =
@@ -48,10 +51,11 @@ function QuestionDetail() {
   }
 
   const { answers, ...data } = questionData.question_by_pk;
-
+  console.log(typeof uid);
   const submitHandler = () => {
     const answerObject = {
-      user_id: 1,
+      user_id: uid,
+      author: username,
       question_id: id,
       answer: markDownState,
     };
@@ -62,7 +66,7 @@ function QuestionDetail() {
     });
     setEditorState(EditorState.createEmpty());
   };
-  // let load = true;
+
   return (
     <Container>
       <div className={classes.questionContain}>

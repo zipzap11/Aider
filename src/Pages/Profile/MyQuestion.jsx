@@ -5,33 +5,49 @@ import classes from "./MyQuestion.module.css";
 import Tag from "../../Components/Tag/Tag";
 import TagContainer from "../../Components/Tag/TagContainer";
 import Markdown from "../../Components/Markdown/Markdown";
+import { Link, useHistory } from "react-router-dom";
 
-const str = `
-So i wanna center my div inside a parent component which is a div too. How should my css file look like? 
+function MyQuestion({ questionData, deleteQuestion }) {
+  const { code, title, id, question, tags } = questionData;
+  const history = useHistory();
+  // const openModal
+  const editHandler = () => {
+    history.push({
+      pathname: `/edit-question/${id}`,
+      state: {
+        data: questionData,
+      },
+    });
+  };
 
-This is my html code
-\`\`\`html
-<div class="outer">
-     <div ="inner"></div>
-</div> 
-\`\`\`
-`;
+  const deleteHandler = () => {
+    deleteQuestion(id);
+  };
 
-function MyQuestion() {
   return (
     <Card>
       <div className={classes.contain}>
-        <h3>How to center a div in html</h3>
+        <h3>{title}</h3>
         <div className={classes.line}></div>
-        <Markdown str={str} />
+        <Markdown str={question} />
+        <Markdown str={code} />
         <TagContainer>
-          {["html", "css"].map((tag, i) => {
-            return <Tag key={i} text={tag} />;
+          {tags.map(({ id, tag }) => {
+            return <Tag key={id} text={tag} />;
           })}
         </TagContainer>
-        <div className={classes.btnWrapper}>
-          <Button theme="light">Edit</Button>
-          <Button theme="dark">Delete</Button>
+        <div className={classes.actionWrapper}>
+          <div className={classes.btnWrapper}>
+            <Button onClick={editHandler} theme="light">
+              Edit
+            </Button>
+            <Button theme="dark" onClick={deleteHandler}>
+              Delete
+            </Button>
+          </div>
+          <Link style={{ alignSelf: "flex-end" }} to={`/forum/detail/${id}`}>
+            details
+          </Link>
         </div>
       </div>
     </Card>

@@ -10,14 +10,17 @@
 
 .left {
   flex: 1;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: flex-start;
   padding-top: 30px;
   color: #242423;
 }
 
 .left h2 {
-  font-size: 54px;
+  font-size: 50px;
+  white-space: nowrap;
   font-weight: 500;
   letter-spacing: 1.5px;
 }
@@ -28,8 +31,8 @@
 }
 .left p {
   font-size: 26px;
-  letter-spacing: 1.5px;
-  max-width: 80%;
+  letter-spacing: 1.2px;
+  max-width: 90%;
 }
 .right {
   text-align: center;
@@ -70,5 +73,5 @@
 
 .bannerIcon {
   color: #333533;
-  transform: scale(0.85);
+  transform: scale(0.8);
 }

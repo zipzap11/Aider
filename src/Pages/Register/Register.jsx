@@ -30,14 +30,6 @@ function Register() {
           displayName: username,
         }).then(() => {
           console.log(auth.currentUser);
-          dispatch(
-            login({
-              username: auth.currentUser.displayName,
-              uid: auth.currentUser.uid,
-              profilePictureUrl: auth.currentUser.photoURL,
-            })
-          );
-          setLoadingAuth(false);
           insertUser({
             variables: {
               object: {
@@ -46,6 +38,15 @@ function Register() {
               },
             },
           });
+          dispatch(
+            login({
+              username: auth.currentUser.displayName,
+              uid: auth.currentUser.uid,
+              profilePictureUrl: auth.currentUser.photoURL,
+              point: 0,
+            })
+          );
+          setLoadingAuth(false);
         });
       })
       .catch((err) => {

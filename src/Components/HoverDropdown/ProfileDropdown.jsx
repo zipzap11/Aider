@@ -3,7 +3,11 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase/firebase";
 import { useDispatch } from "react-redux";
 import { logout } from "../../Store/userSlice";
-
+import classes from "./ProfileDropdown.module.css";
+import { Link } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+import LogoutIcon from "@mui/icons-material/Logout";
 function ProfileDropdown() {
   const dispatch = useDispatch();
 
@@ -13,18 +17,29 @@ function ProfileDropdown() {
   };
 
   return (
-    <ul>
+    <ul className={classes.dropdown}>
+      <li className={classes.title}>Menu</li>
       <li>
-        <button></button>
+        <Link to="/Profile">
+          <button>
+            <PersonIcon />
+            Profile
+          </button>
+        </Link>
       </li>
       <li>
-        <button></button>
+        <Link to="/user-question">
+          <button>
+            <LiveHelpIcon />
+            Questions
+          </button>
+        </Link>
       </li>
       <li>
-        <button></button>
-      </li>
-      <li>
-        <button onClick={logoutHandler}>Logout</button>
+        <button onClick={logoutHandler}>
+          <LogoutIcon />
+          Logout
+        </button>
       </li>
     </ul>
   );

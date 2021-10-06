@@ -6,31 +6,26 @@ import Markdown from "../../Components/Markdown/Markdown";
 import CommentForm from "../../Components/Comment/CommentForm";
 import { useSubmitAnswerComment } from "../../Hooks/useSubmitAnswerComment";
 import classes from "./Answer.module.css";
-
-const str = `
-\`\`\`css
-.outer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-\`\`\`
-You can use this code, in your css files. Make sure to connect your html to the correct css files.
-`;
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 function Answer({ str, comments, id }) {
   const [commentState, setCommentState] = useState(false);
   const { submitComment, errorSubmitComment, loadingSubmitComment } =
     useSubmitAnswerComment();
-
+  const username = useSelector((state) => state.user.username);
+  const uid = useSelector((state) => state.user.uid);
+  const { id: questionId } = useParams();
+  console.log("questionId = ", questionId);
   const submitHandler = (comment) => {
     submitComment({
       variables: {
         object: {
-          author: "Francisco",
+          author: username,
           comment: comment,
-          user_id: 1,
+          user_id: uid,
           answer_id: id,
+          question_id: questionId,
         },
       },
     });

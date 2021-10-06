@@ -4,11 +4,12 @@ import Container from "../../Components/Container/Container";
 import FormControl from "../../Components/FormControl/FormControl";
 import Button from "../../Components/Button/Button";
 import classes from "./Login.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../Firebase/firebase";
 import { useHistory } from "react-router-dom";
 import CenteredSpinner from "../../Components/Loading/CenteredSpinner";
+import { login } from "../../Store/userSlice";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,9 @@ function Login() {
 
   const isLogin = useSelector((state) => state.user.isLogin);
   const history = useHistory();
+  const dispatch = useDispatch();
 
+  console.log("isLogin = ", isLogin);
   if (isLogin) {
     history.replace("/forum");
   }
@@ -27,6 +30,14 @@ function Login() {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
+        dispatch(
+          login({
+            username: userAuth.user.displayName,
+            uid: userAuth.user.uid,
+            point: null,
+            profilePictureUrl: userAuth.user.photoURL,
+          })
+        );
         setLoading(false);
       })
       .catch((err) => {
