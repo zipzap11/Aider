@@ -49,22 +49,16 @@ function CreateBlog() {
 
   const uploadImageHandler = (e) => {
     // setImageLoading(true);
-    console.log(e);
-    console.log(imageRef.current.files);
     const files = imageRef.current.files;
     const file = files[0];
     const fileRef = ref(storage, `blog-img/${uuidv4()}`);
     uploadBytes(fileRef, file)
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
         setImageLoading(false);
       })
       .then(() => {
         getDownloadURL(fileRef).then((url) => {
-          console.log(url);
           setUrl(url);
           setImageLoading(false);
         });

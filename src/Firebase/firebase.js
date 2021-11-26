@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-// import { getStorage } from "@firebase/storage";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
@@ -13,7 +12,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// const storage = getStorage();
 const storage = getStorage(app, "gs://aider-11f0f.appspot.com");
 const auth = getAuth(app);
 export { storage, auth };

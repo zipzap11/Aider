@@ -20,7 +20,6 @@ function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  console.log("isLogin = ", isLogin);
   if (isLogin) {
     history.replace("/forum");
   }

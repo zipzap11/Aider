@@ -73,7 +73,6 @@ function EditQuestion(props) {
   };
 
   const saveHandler = () => {
-    console.log("tags = ", tags);
     setSubmitted(true);
     updateQuestion({
       variables: {

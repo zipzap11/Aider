@@ -9,6 +9,7 @@ export const getQuestionDetail = gql`
       title
       user_id
       username
+      timestamp
       answers {
         answer
         code

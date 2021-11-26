@@ -11,7 +11,6 @@ function AlertMessage({ show, onClose, type, message }) {
     <Snackbar
       anchorOrigin={{ horizontal: "center", vertical: "top" }}
       open={show}
-      // autoHideDuration={6000}
       onClose={onClose}
     >
       <Alert onClose={onClose} severity={type} sx={{ width: "100%" }}>

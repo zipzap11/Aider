@@ -46,7 +46,6 @@ function MainForum() {
 
   const showedData = mode === "all" ? data : questionsByTag;
   const isLoading = loading || loadingQuestionsByTag;
-  console.log(showedData);
 
   return (
     <Container>
@@ -114,7 +113,6 @@ function MainForum() {
             </Card>
           )}
           {showedData?.question.map((q) => {
-            console.log("q ========= ", q);
             return (
               <QuestionCard
                 key={q.id}

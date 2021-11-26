@@ -35,7 +35,6 @@ function UserHeader() {
   if (errorGetUserPoint) {
     return <p>error, {errorGetUserPoint.message}</p>;
   }
-  console.log("FROM USER HEADER = ", loadingGetUserPoint);
   return (
     <>
       <div className={classes.notificationIcon}>

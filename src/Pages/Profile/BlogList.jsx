@@ -12,7 +12,6 @@ function BlogList() {
       user_id: uid,
     },
   });
-  console.log("data===", data);
   return (
     <Container>
       <h2>Your Blogs</h2>

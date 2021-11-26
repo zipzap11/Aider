@@ -13,10 +13,10 @@ import { useSelector } from "react-redux";
 function QuestionDetailCard({ data }) {
   const [commentState, setCommentState] = useState(false);
 
-  console.log("Data = ", data);
   const username = useSelector((state) => state.user.username);
   const uid = useSelector((state) => state.user.uid);
-  const { title, code, question, tags, question_comments, id } = data;
+  const { title, code, question, tags, question_comments, id, timestamp } =
+    data;
   const { submitComment, errorSubmitComment, loadingSubmitComment } =
     useSubmitQuestionComment();
 
@@ -49,7 +49,7 @@ function QuestionDetailCard({ data }) {
         {!commentState && (
           <div className={classes.bottomWrapper}>
             <CommentButton onClick={() => setCommentState(true)} />
-            <p>1 hour ago</p>
+            <p>{timestamp}</p>
           </div>
         )}
         {commentState && (

@@ -12,7 +12,6 @@ import AlertMessage from "../../Components/Alert/AlertMessage";
 
 function QuestionList() {
   const uid = useSelector((state) => state.user.uid);
-  console.log("UIDDDD", uid);
   const { errorMyQuestions, loadingMyQuestions, myQuestions } =
     useGetUserQuestion(uid);
   const { deleteQuestion, errorDeleteQuestion, loadingDeleteQuestion } =
@@ -36,8 +35,6 @@ function QuestionList() {
     return <LoadingQuestionDetail />;
   }
 
-  console.log(myQuestions);
-
   return (
     <Container>
       {errorMyQuestions && (
@@ -59,7 +56,6 @@ function QuestionList() {
           )}
           {!loadingDeleteQuestion &&
             myQuestions.question.map((question) => {
-              console.log("MAPPING MY QUESTION ===== ", question);
               return (
                 <MyQuestion
                   deleteQuestion={deleteHandler}

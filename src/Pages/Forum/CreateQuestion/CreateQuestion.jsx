@@ -70,10 +70,7 @@ function CreateQuestion() {
   const backHandler = () => {
     history.push("/forum");
   };
-  console.log(
-    "DATE ================== ",
-    date.format(new Date(), "DD-MM-YYYY")
-  );
+
   const submitHandler = () => {
     const questionObject = {
       user_id: uid,
@@ -83,12 +80,11 @@ function CreateQuestion() {
         convertToRaw(questionEditorState.getCurrentContent())
       ),
       code: draftjsToMd(convertToRaw(codeEditorState.getCurrentContent())),
-      timestamp: date.format(new Date(), "DD-MM-YYYY"),
+      timestamp: date.format(new Date(), "MMM-DD-YYYY"),
       tags: {
         data: tags,
       },
     };
-    console.log("QUESTION OBJECT = ", questionObject);
 
     createQuestion({
       variables: {

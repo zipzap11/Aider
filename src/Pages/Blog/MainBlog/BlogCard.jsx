@@ -26,7 +26,7 @@ function BlogCard({ image, author, title, id, tags, deleteAble, onDelete }) {
         flexDirection: "column",
         justifyContent: "space-between",
       }}
-      sx={{ maxWidth: 250 }}
+      sx={{ maxWidth: 260 }}
     >
       <div>
         <CardMedia

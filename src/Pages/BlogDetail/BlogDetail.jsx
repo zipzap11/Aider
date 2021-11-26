@@ -40,7 +40,6 @@ function BlogDetail() {
   };
 
   if (error) alert(error.message);
-  console.log(data);
   return (
     <Container>
       <Card className={classes.card}>

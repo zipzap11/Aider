@@ -13,7 +13,6 @@ import CenteredSpinner from "../../../Components/Loading/CenteredSpinner";
 function BlogsContainer({ data, error, loading, del }) {
   const history = useHistory();
   const uid = useSelector((state) => state.user.uid);
-  console.log("UID ==== ", uid);
   const { deleteBlog, errorDeleteBlog, loadingDeleteBlog } =
     useDeleteUserBlog(uid);
   const [deleted, setDeleted] = useState(false);

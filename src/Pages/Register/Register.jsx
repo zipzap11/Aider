@@ -25,11 +25,9 @@ function Register() {
     setLoadingAuth(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((authUser) => {
-        console.log("authUser", authUser);
         updateProfile(auth.currentUser, {
           displayName: username,
         }).then(() => {
-          console.log(auth.currentUser);
           insertUser({
             variables: {
               object: {
@@ -50,7 +48,6 @@ function Register() {
         });
       })
       .catch((err) => {
-        console.log(err);
         setLoadingAuth(false);
         setErrorAuth(err);
       });

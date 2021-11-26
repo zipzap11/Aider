@@ -6,8 +6,22 @@ import Container from "../../Components/Container/Container";
 import Card from "../../Components/Card/Card";
 import { bannerData } from "./data";
 import BannerCard from "./BannerCard";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const isLogin = useSelector(state=>state.user.isLogin)
+  const history = useHistory()
+
+  const clickHandler = () => {
+    if (isLogin) {
+      history.push("/forum")
+    } else {
+      history.push("/register")
+    }
+  }
+
+
   return (
     <Container>
       <Card className={classes.cardBanner}>
@@ -18,7 +32,7 @@ function Home() {
               Ask question or answer some, help other by writing blogs and
               Search for jobs and get hired.
             </p>
-            <Button className={classes.btn} theme="dark">
+            <Button onClick={clickHandler} className={classes.btn} theme="dark">
               get started
             </Button>
           </div>
@@ -40,6 +54,7 @@ function Home() {
                 title={data.title}
                 content={data.content}
                 action={data.action}
+                link={data.link}
               />
             );
           })}

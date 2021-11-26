@@ -19,18 +19,17 @@ import PublicRoute from "./Components/PrivateRoute/PublicRoute";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Blog from "./Pages/Blog/Blog";
 import BlogList from "./Pages/Profile/BlogList";
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
+
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect");
     const unsubs = onAuthStateChanged(
       auth,
       (userAuth) => {
-        console.log("userAuth = ", userAuth);
         if (userAuth !== null) {
-          console.log("masuk if");
           dispatch(
             login({
               username: userAuth.displayName,
@@ -50,7 +49,7 @@ function App() {
         setLoading(false);
       }
     );
-    return unsubs;
+    return () => unsubs;
   }, [dispatch]);
 
   return (
@@ -65,6 +64,7 @@ function App() {
       {!loading && (
         <>
           <Header />
+          <ScrollToTop />
           <Navigation />
           <Switch>
             <Route path="/" exact component={Home} />

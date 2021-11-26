@@ -16,7 +16,7 @@ function Answer({ str, comments, id }) {
   const username = useSelector((state) => state.user.username);
   const uid = useSelector((state) => state.user.uid);
   const { id: questionId } = useParams();
-  console.log("questionId = ", questionId);
+
   const submitHandler = (comment) => {
     submitComment({
       variables: {

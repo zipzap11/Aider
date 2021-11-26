@@ -6,7 +6,6 @@ import { storage } from "../../Firebase/firebase";
 function TextEditor({ editorState, onChange }) {
   const uploadImageCallback = async (file) => {
     const fileref = ref(storage, `question/${file.name}`);
-    // const uploadTask = uploadBytes(fileref, file);
     async function uploadImg() {
       const imgUrl = await uploadBytes(fileref, file).then(() =>
         getDownloadURL(fileref).then((url) => url)
@@ -15,7 +14,6 @@ function TextEditor({ editorState, onChange }) {
     }
 
     const url = await uploadImg();
-    console.log("url = ", url);
 
     return new Promise((resolve, reject) => {
       resolve({

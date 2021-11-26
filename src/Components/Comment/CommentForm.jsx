@@ -11,7 +11,6 @@ function CommentForm({ onCancel, onSubmit, error, loading }) {
     onSubmit(commentRef.current.value);
     commentRef.current.value = "";
   };
-  console.log("LOADING +++++++===== ", loading);
   return (
     <div className={classes.contain}>
       <form onSubmit={submitHandler}>

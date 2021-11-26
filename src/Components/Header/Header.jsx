@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const isLogin = useSelector((state) => state.user.isLogin);
-  console.log("is login = ", isLogin);
   return (
     <div className={classes.header}>
       <div className={classes.container}>

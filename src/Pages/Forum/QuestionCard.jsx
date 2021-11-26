@@ -11,7 +11,6 @@ import Markdown from "../../Components/Markdown/Markdown";
 function QuestionCard({ author, title, content, tags, id, answer, timestamp }) {
   const history = useHistory();
   const detailClickHandler = () => {
-    console.log("click");
     history.push(`/forum/detail/${id}`);
   };
 

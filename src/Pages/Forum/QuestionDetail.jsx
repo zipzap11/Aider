@@ -15,7 +15,6 @@ import { useParams } from "react-router";
 import LoadingQuestionDetail from "../../Components/Loading/LoadingQuestionDetail";
 import { useSubscribeQuestionDetail } from "../../Hooks/useSubscribeQuestionDetail";
 import { CircularProgress } from "@mui/material";
-import draftToHtml from "draftjs-to-html";
 import { draftjsToMd } from "draftjs-md-converter";
 import { useSelector } from "react-redux";
 
@@ -25,7 +24,6 @@ function QuestionDetail() {
     convertToRaw(editorState.getCurrentContent())
   );
 
-  console.log(markDownState.length);
   const { id } = useParams();
   const username = useSelector((state) => state.user.username);
   const uid = useSelector((state) => state.user.uid);
@@ -35,10 +33,6 @@ function QuestionDetail() {
     useSubscribeQuestionDetail(id);
 
   const editorStateChangeHandler = (editorState) => {
-    console.log(
-      "HTML = ",
-      draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    );
     setEditorState(editorState);
   };
 
@@ -51,7 +45,7 @@ function QuestionDetail() {
   }
 
   const { answers, ...data } = questionData.question_by_pk;
-  console.log(typeof uid);
+
   const submitHandler = () => {
     const answerObject = {
       user_id: uid,
